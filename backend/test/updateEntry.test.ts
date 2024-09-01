@@ -1,5 +1,5 @@
-import { server } from "../src/server"
 import Prisma from "../src/db";
+import { server } from "../src/server";
 
 let createdEntryId: string;
 
@@ -9,8 +9,8 @@ beforeAll(async () => {
   // Create an entry to update
   const createdEntry = await Prisma.entry.create({
     data: {
-      title: 'Initial Title',
-      description: 'Initial Description',
+      title: "Initial Title",
+      description: "Initial Description",
       created_at: new Date(),
       scheduled_at: new Date(),
     },
@@ -19,8 +19,8 @@ beforeAll(async () => {
   createdEntryId = createdEntry.id;
 
   const response = await server.inject({
-    method: 'POST',
-    url: '/create/',
+    method: "POST",
+    url: "/create/",
     payload: createdEntry,
   });
 });
@@ -33,17 +33,17 @@ afterAll(async () => {
   await server.close();
 });
 
-describe('PUT /update/:id', () => {
-  it('should update the existing entry', async () => {
+describe("PUT /update/:id", () => {
+  it("should update the existing entry", async () => {
     const updatedEntryData = {
-      title: 'Updated Title',
-      description: 'Updated Description',
+      title: "Updated Title",
+      description: "Updated Description",
       created_at: new Date().toISOString(),
       scheduled_at: new Date().toISOString(),
     };
 
     const response = await server.inject({
-      method: 'PUT',
+      method: "PUT",
       url: `/update/${createdEntryId}`,
       payload: updatedEntryData,
     });

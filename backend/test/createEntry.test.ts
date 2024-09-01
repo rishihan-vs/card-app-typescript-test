@@ -1,5 +1,5 @@
-import { server } from "../src/server"
 import Prisma from "../src/db";
+import { server } from "../src/server";
 
 beforeAll(async () => {
   await server.ready();
@@ -11,18 +11,18 @@ afterAll(async () => {
   await server.close();
 });
 
-describe('POST /create/', () => {
-  it('should create a new entry and return it', async () => {
+describe("POST /create/", () => {
+  it("should create a new entry and return it", async () => {
     const newEntryData = {
-      title: 'Test Title',
-      description: 'Test Description',
+      title: "Test Title",
+      description: "Test Description",
       created_at: new Date().toISOString(),
       scheduled_at: new Date().toISOString(),
     };
 
     const response = await server.inject({
-      method: 'POST',
-      url: '/create/',
+      method: "POST",
+      url: "/create/",
       payload: newEntryData,
     });
 
@@ -30,7 +30,7 @@ describe('POST /create/', () => {
     expect(response.statusCode).toBe(200);
 
     const createdEntry = JSON.parse(response.payload);
-    
+
     // Check that the returned entry matches the input data
     expect(createdEntry.title).toBe(newEntryData.title);
     expect(createdEntry.description).toBe(newEntryData.description);

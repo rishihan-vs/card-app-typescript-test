@@ -1,5 +1,5 @@
-import { server } from "../src/server"
 import Prisma from "../src/db";
+import { server } from "../src/server";
 
 let createdEntryId: string;
 
@@ -9,8 +9,8 @@ beforeAll(async () => {
   // Create an entry to delete
   const createdEntry = await Prisma.entry.create({
     data: {
-      title: 'Entry to Delete',
-      description: 'This entry will be deleted',
+      title: "Entry to Delete",
+      description: "This entry will be deleted",
       created_at: new Date(),
       scheduled_at: new Date(),
     },
@@ -19,8 +19,8 @@ beforeAll(async () => {
   createdEntryId = createdEntry.id;
 
   const response = await server.inject({
-    method: 'POST',
-    url: '/create/',
+    method: "POST",
+    url: "/create/",
     payload: createdEntry,
   });
 });
@@ -30,10 +30,10 @@ afterAll(async () => {
   await server.close();
 });
 
-describe('DELETE /delete/:id', () => {
-  it('should delete the existing entry', async () => {
+describe("DELETE /delete/:id", () => {
+  it("should delete the existing entry", async () => {
     const response = await server.inject({
-      method: 'DELETE',
+      method: "DELETE",
       url: `/delete/${createdEntryId}`,
     });
 
